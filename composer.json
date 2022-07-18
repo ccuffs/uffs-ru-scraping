@@ -1,0 +1,19 @@
+{
+	"name": "ccuffs/uffs-ru-scraping",
+	"description": "Biblioteca para obter dados dos restaurantes universitários da UFFS de forma automatizada",
+	"type": "composer-plugin",
+	"license": "MIT",
+	"authors": [{
+		"name": "Alisson Luan de Lima Peloso",
+		"email": "alisson.luan2000@gmail.com"
+	}],
+	"minimum-stability": "dev",
+	"autoload": {
+		"psr-4": {
+			"CCUFFS\\Scrap\\": "src/"
+		}
+	},
+	"require": {
+		"paquettg/php-html-parser": "dev-master"
+	}
+}
