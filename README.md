@@ -112,7 +112,7 @@ $ur = new UniversityRestaurantUFFS();
 $menu = $ur->getMenuByWeekDay($ur->campus["chapeco"], 'seg');
 ```
 
-Nesses dois métodos, se não é encontrado o valor do dia especificado, ele retornará `NULL`.
+Nesses dois métodos, se não é encontrado o valor do dia especificado, ele retornará `null`.
 
 O resultado desses métodos será semelhante à esse:
 
