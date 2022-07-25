@@ -4,5 +4,5 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use CCUFFS\Scrap\UniversityRestaurantUFFS;
 
-$ru = new UniversityRestaurantUFFS();
-print_r($ru->getMenuByCampus($ru->campus["cerro-largo"]));
+$ur = new UniversityRestaurantUFFS();
+print_r($ur->getMenuByWeekDay($ur->campus["chapeco"], 'seg'));

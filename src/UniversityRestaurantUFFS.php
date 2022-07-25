@@ -109,7 +109,7 @@ class UniversityRestaurantUFFS
 	{
 		$menu = $this->getMenuByCampus($link);
 
-		return $menu[$date];
+		return array_key_exists($date, $menu) ? $menu[$date] : null;
 	}
 
 	public function getMenuByWeekDay(string $link, string $weekday)
@@ -117,7 +117,7 @@ class UniversityRestaurantUFFS
 		$date = $this->formatDate($this->getDateByWeekDay($weekday));
 		$menu = $this->getMenuByCampus($link);
 
-		return $menu[$date];
+		return array_key_exists($date, $menu) ? $menu[$date] : null;
 	}
 
 	public function getDateByWeekDay(string $weekday)
