@@ -68,7 +68,7 @@ class UniversityRestaurantUFFS
 					) {
 						$items = $row->getElementsByTagName('td');
 						foreach ($items as $j => $item) {
-							$menus[$week_string_dates[$j]][] = $item->textContent;
+							$menus[$week_string_dates[$j]][] = trim(preg_replace('/[\pZ\pC]/u', ' ', $item->textContent));
 						}
 					}
 				}
@@ -89,6 +89,11 @@ class UniversityRestaurantUFFS
 		} else {
 			$date2 = date_create_from_format("d/m/Y", $matches[0][1])->modify('+1 day');
 			$date1 = date_create_from_format("d/m/Y", $matches[0][0]);
+
+			if ($date2->diff($date1)->m > 0) {
+				$date1 = clone $date2;
+				$date1->modify("-5 days");
+			}
 		}
 
 		$week_dates = new DatePeriod(
