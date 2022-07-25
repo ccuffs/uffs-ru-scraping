@@ -6,3 +6,4 @@ ehthumbs.db
 node_modules/
 .vs/
 /vendor/
+composer.lock
