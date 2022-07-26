@@ -1,7 +1,7 @@
 {
 	"name": "ccuffs/uffs-ru-scraping",
 	"description": "Biblioteca para obter dados dos restaurantes universitários da UFFS de forma automatizada",
-	"type": "composer-plugin",
+	"type": "library",
 	"license": "MIT",
 	"authors": [{
 		"name": "Alisson Luan de Lima Peloso",
