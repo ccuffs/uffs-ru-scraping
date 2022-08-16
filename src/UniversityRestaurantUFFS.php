@@ -68,7 +68,10 @@ class UniversityRestaurantUFFS
 					) {
 						$items = $row->getElementsByTagName('td');
 						foreach ($items as $j => $item) {
-							$menus[$week_string_dates[$j]][] = trim(preg_replace('/[\pZ\pC]/u', ' ', $item->textContent));
+							$treated_item = trim(preg_replace('/[\pZ\pC]/u', ' ', $item->textContent));
+							if ($treated_item != "") {
+								$menus[$week_string_dates[$j]][] = $treated_item;
+							}
 						}
 					}
 				}
