@@ -96,6 +96,14 @@ class UniversityRestaurantUFFS
 			}
 		}
 
+		if ($date1->format("Y") < 100) {
+			$date1 = date_create_from_format("d/m/y", $date1->format("d/m/y"));
+		}
+
+		if ($date2->format("Y") < 100) {
+			$date2 = date_create_from_format("d/m/y", $date2->format("d/m/y"));
+		}
+
 		$week_dates = new DatePeriod(
 			$date1,
 			new DateInterval('P1D'),
