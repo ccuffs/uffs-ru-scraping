@@ -68,32 +68,44 @@ class UniversityRestaurantUFFS
 					) {
 						$items = $row->getElementsByTagName('td');
 						foreach ($items as $j => $item) {
-							$menus[$week_string_dates[$j]][] = trim(preg_replace('/[\pZ\pC]/u', ' ', $item->textContent));
+							$treated_item = trim(preg_replace('/[\pZ\pC]/u', ' ', $item->textContent));
+							if ($treated_item != "") {
+								$menus[$week_string_dates[$j]][] = $treated_item;
+							}
 						}
 					}
 				}
 			}
 		}
 
+		uksort($menus, function ($a, $b) {
+			if (date_create_from_format("d/m/Y", $a) == date_create_from_format("d/m/Y", $b)) return 0;
+			return ((date_create_from_format("d/m/Y", $a) < date_create_from_format("d/m/Y", $b)) ? -1 : 1);
+		});
 		return $menus;
 	}
 
 	public function handleWeekDate(string $week)
 	{
 		preg_match_all("/(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/([0-9]{4}|[0-9]{2})/", $week, $matches);
-		preg_match_all("/\s(0[1-9]|[1-2][0-9]|3[0-1])\s|\s([1-9])\s/", $week, $matches_prime);
-		if ($matches_prime[0]) {
-			$date2 = date_create_from_format("d/m/Y", $matches[0][0])->modify('+1 day');
-			$date1 = clone $date2;
-			$date1->modify("-5 days");
-		} else {
-			$date2 = date_create_from_format("d/m/Y", $matches[0][1])->modify('+1 day');
-			$date1 = date_create_from_format("d/m/Y", $matches[0][0]);
 
-			if ($date2->diff($date1)->m > 0) {
+		if ($matches[0]) {
+			$date2 = date_create_from_format("d/m/Y", end($matches[0]))->modify('+1 day');
+			if(count($matches[0]) > 1){
+				$date1 = date_create_from_format("d/m/Y", $matches[0][0]);
+			} else {
 				$date1 = clone $date2;
 				$date1->modify("-5 days");
 			}
+
+		} 
+
+		if ($date1->format("Y") < 100) {
+			$date1 = date_create_from_format("d/m/y", $date1->format("d/m/y"));
+		}
+
+		if ($date2->format("Y") < 100) {
+			$date2 = date_create_from_format("d/m/y", $date2->format("d/m/y"));
 		}
 
 		$week_dates = new DatePeriod(
