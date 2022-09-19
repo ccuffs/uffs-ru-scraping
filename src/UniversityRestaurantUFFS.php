@@ -97,8 +97,16 @@ class UniversityRestaurantUFFS
 				$date1 = clone $date2;
 				$date1->modify("-5 days");
 			}
-
-		} 
+		} else {
+			preg_match_all("/(0[1-9]|[1-2][0-9]|3[0-1])\-(0[1-9]|1[0-2])\-([0-9]{4}|[0-9]{2})/", $week, $matches);
+			$date2 = date_create_from_format("d-m-Y", end($matches[0]))->modify('+1 day');
+			if(count($matches[0]) > 1){
+				$date1 = date_create_from_format("d-m-Y", $matches[0][0]);
+			} else {
+				$date1 = clone $date2;
+				$date1->modify("-5 days");
+			}
+		}
 
 		if ($date1->format("Y") < 100) {
 			$date1 = date_create_from_format("d/m/y", $date1->format("d/m/y"));
